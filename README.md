@@ -66,11 +66,11 @@ To run the sync automatically and handle cases where the laptop is asleep at the
     crontab -e
     ```
 
-2.  Add the following entry to run the script every 6 hours:
+2.  Add the following entry to run the script every 1 hours:
     ```cron
-    0 */6 * * * cd /Users/kashnitsky/Documents/garmin_sheet && make sync >> garmin_sync.log 2>&1
+    0 * * * * cd /Users/kashnitsky/Documents/garmin_sheet && make sync >> garmin_sync.log 2>&1
     ```
-    The script includes logic to ensure it only performs the sync once per day, so running it every 6 hours allows it to catch up if the laptop was asleep at 16:00.
+    The script includes logic to ensure it only performs the sync once per hour, so running it every hour allows it to catch up if the laptop was asleep
 
 3.  Verify the cron job is active:
     ```bash
@@ -82,7 +82,7 @@ To run the sync automatically and handle cases where the laptop is asleep at the
 
 ## 5. Analysis with Gemini
 
-In a Geinini Chat or Gem, ask 
+In a Gemini Chat or Gem, ask 
 
 ```
 Based on my latest running stats from <link to the sheet>, provide me and advice

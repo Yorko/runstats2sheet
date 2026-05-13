@@ -40,8 +40,8 @@ def sync_garmin_stats():
         try:
             last_sync_str = state_file.read_text().strip()
             last_sync = datetime.fromisoformat(last_sync_str)
-            if now - last_sync < timedelta(hours=6):
-                logging.info(f"Last sync was at {last_sync_str} (less than 6 hours ago). Skipping.")
+            if now - last_sync < timedelta(hours=1):
+                logging.info(f"Last sync was at {last_sync_str} (less than 1 hour ago). Skipping.")
                 return
         except ValueError:
             logging.warning("Could not parse last sync timestamp. Proceeding with sync.")
@@ -123,6 +123,20 @@ def sync_garmin_stats():
             "avgCadence": round(avg_cadence, 1),
             "maxCadence": round(max_cadence, 1)
         })
+
+    # Save last workout to local file for frontend
+    if processed_activities:
+        frontend_data_dir = Path("src/frontend/data")
+        frontend_data_dir.mkdir(parents=True, exist_ok=True)
+        last_workout_file = frontend_data_dir / "last_workout.js"
+        try:
+            with open(last_workout_file, "w") as f:
+                f.write("window.lastWorkout = ")
+                json.dump(processed_activities[0], f, indent=4)
+                f.write(";")
+            logging.info(f"Saved last workout to {last_workout_file}")
+        except Exception as e:
+            logging.error(f"Failed to save last workout to file: {e}")
 
     if not processed_activities:
         logging.info("No activities to send.")
