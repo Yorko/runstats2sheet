@@ -5,7 +5,7 @@ This application fetches your running stats from Garmin Connect and writes them 
 ## Prerequisites
 
 - Python 3.12+
-- `uv` for dependency management
+- `uv` for dependency management (`pip install uv`)
 
 ## Setup
 
@@ -42,7 +42,7 @@ For a clean integration, we use the `gspread` library with a Google Cloud Servic
 6.  Add `SPREADSHEET_ID` to your `.env` file.
 
 
-## Installation & Running
+## 3. Installation & Running
 
 You can use the provided `Makefile` for common commands:
 
@@ -57,10 +57,34 @@ uv lock
 uv run python -m src.sync_stats
 ```
 
-## Form Example
+## 4. Automation with crontab
+
+To run the sync automatically and handle cases where the laptop is asleep at the scheduled time, you can use `crontab`.
+
+1.  Open your crontab for editing:
+    ```bash
+    crontab -e
+    ```
+
+2.  Add the following entry to run the script every 1 hours:
+    ```cron
+    0 * * * * cd /Users/kashnitsky/Documents/garmin_sheet && make sync >> garmin_sync.log 2>&1
+    ```
+    The script includes logic to ensure it only performs the sync once per hour, so running it every hour allows it to catch up if the laptop was asleep
+
+3.  Verify the cron job is active:
+    ```bash
+    crontab -l
+    ```
+
+**Example of fetched data**
 ![Garmin Running Stats](img/garmin_running_stats.png)
 
-## TODOs
-- [ ] Setup a cron job or GitHub Actions to run the script periodically.
-- [ ] Deduplicate records (ensure same activity is not logged multiple times).
-- [ ] (Stretch) Add an agent to analyze the stats.
+## 5. Analysis with Gemini
+
+In a Gemini Chat or Gem, ask 
+
+```
+Based on my latest running stats from <link to the sheet>, provide me and advice
+on how to improve my running performance.
+```
