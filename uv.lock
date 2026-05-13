@@ -5,18 +5,21 @@ resolution-markers = [
     "python_full_version >= '3.14' and sys_platform == 'win32'",
     "python_full_version >= '3.14' and sys_platform == 'emscripten'",
     "python_full_version >= '3.14' and sys_platform != 'emscripten' and sys_platform != 'win32'",
-    "python_full_version < '3.14' and sys_platform == 'win32'",
-    "python_full_version < '3.14' and sys_platform == 'emscripten'",
-    "python_full_version < '3.14' and sys_platform != 'emscripten' and sys_platform != 'win32'",
+    "python_full_version == '3.13.*' and sys_platform == 'win32'",
+    "python_full_version == '3.13.*' and sys_platform == 'emscripten'",
+    "python_full_version == '3.13.*' and sys_platform != 'emscripten' and sys_platform != 'win32'",
+    "python_full_version < '3.13' and sys_platform == 'win32'",
+    "python_full_version < '3.13' and sys_platform == 'emscripten'",
+    "python_full_version < '3.13' and sys_platform != 'emscripten' and sys_platform != 'win32'",
 ]
 
 [[package]]
 name = "certifi"
-version = "2026.2.25"
+version = "2026.4.22"
 source = { registry = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/simple/" }
-sdist = { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/certifi/certifi-2026.2.25.tar.gz", hash = "sha256:e887ab5cee78ea814d3472169153c2d12cd43b14bd03329a39a9c6e2e80bfba7" }
+sdist = { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/certifi/certifi-2026.4.22.tar.gz", hash = "sha256:8d455352a37b71bf76a79caa83a3d6c25afee4a385d632127b6afb3963f1c580" }
 wheels = [
-    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/certifi/certifi-2026.2.25-py3-none-any.whl", hash = "sha256:027692e4402ad994f1c42e52a4997a9763c646b73e4096e4d5d6db8af1d6f0fa" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/certifi/certifi-2026.4.22-py3-none-any.whl", hash = "sha256:3cb2210c8f88ba2318d29b0388d1023c8492ff72ecdde4ebdaddbb13a31b1c4a" },
 ]
 
 [[package]]
@@ -150,6 +153,59 @@ wheels = [
 ]
 
 [[package]]
+name = "cryptography"
+version = "47.0.0"
+source = { registry = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/simple/" }
+dependencies = [
+    { name = "cffi", marker = "platform_python_implementation != 'PyPy'" },
+]
+sdist = { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0.tar.gz", hash = "sha256:9f8e55fe4e63613a5e1cc5819030f27b97742d720203a087802ce4ce9ceb52bb" }
+wheels = [
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp311-abi3-macosx_10_9_universal2.whl", hash = "sha256:160ad728f128972d362e714054f6ba0067cab7fb350c5202a9ae8ae4ce3ef1a0" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp311-abi3-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:b9a8943e359b7615db1a3ba587994618e094ff3d6fa5a390c73d079ce18b3973" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp311-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:f5c15764f261394b22aef6b00252f5195f46f2ca300bec57149474e2538b31f8" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp311-abi3-manylinux_2_28_aarch64.whl", hash = "sha256:9c59ab0e0fa3a180a5a9c59f3a5abe3ef90d474bc56d7fadfbe80359491b615b" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp311-abi3-manylinux_2_28_ppc64le.whl", hash = "sha256:34b4358b925a5ea3e14384ca781a2c0ef7ac219b57bb9eacc4457078e2b19f92" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp311-abi3-manylinux_2_28_x86_64.whl", hash = "sha256:0024b87d47ae2399165a6bfb20d24888881eeab83ae2566d62467c5ff0030ce7" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp311-abi3-manylinux_2_31_armv7l.whl", hash = "sha256:1e47422b5557bb82d3fff997e8d92cff4e28b9789576984f08c248d2b3535d93" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp311-abi3-manylinux_2_34_aarch64.whl", hash = "sha256:6f29f36582e6151d9686235e586dd35bb67491f024767d10b842e520dc6a07ac" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp311-abi3-manylinux_2_34_ppc64le.whl", hash = "sha256:a9b761f012a943b7de0e828843c5688d0de94a0578d44d6c85a1bae32f87791f" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp311-abi3-manylinux_2_34_x86_64.whl", hash = "sha256:4e1de79e047e25d6e9f8cea71c86b4a53aced64134f0f003bbcbf3655fd172c8" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp311-abi3-musllinux_1_2_aarch64.whl", hash = "sha256:ef6b3634087f18d2155b1e8ce264e5345a753da2c5fa9815e7d41315c90f8318" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp311-abi3-musllinux_1_2_x86_64.whl", hash = "sha256:11dbb9f50a0f1bb9757b3d8c27c1101780efb8f0bdecfb12439c22a74d64c001" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp311-abi3-win32.whl", hash = "sha256:7fda2f02c9015db3f42bb8a22324a454516ed10a8c29ca6ece6cdbb5efe2a203" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp311-abi3-win_amd64.whl", hash = "sha256:f5c3296dab66202f1b18a91fa266be93d6aa0c2806ea3d67762c69f60adc71aa" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp314-cp314t-macosx_10_9_universal2.whl", hash = "sha256:be12cb6a204f77ed968bcefe68086eb061695b540a3dd05edac507a3111b25f0" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp314-cp314t-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:2ebd84adf0728c039a3be2700289378e1c164afc6748df1a5ed456767bef9ba7" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp314-cp314t-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:7f68d6fbc7fbbcfb0939fea72c3b96a9f9a6edfc0e1b1d29778a2066030418b1" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp314-cp314t-manylinux_2_28_aarch64.whl", hash = "sha256:6651d32eff255423503aa276739da98c30f26c40cbeffcc6048e0d54ef704c0c" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp314-cp314t-manylinux_2_28_ppc64le.whl", hash = "sha256:3fb8fa48075fad7193f2e5496135c6a76ac4b2aa5a38433df0a539296b377829" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp314-cp314t-manylinux_2_28_x86_64.whl", hash = "sha256:11438c7518132d95f354fa01a4aa2f806d172a061a7bed18cf18cbdacdb204d7" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp314-cp314t-manylinux_2_31_armv7l.whl", hash = "sha256:8c1a736bbb3288005796c3f7ccb9453360d7fed483b13b9f468aea5171432923" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp314-cp314t-manylinux_2_34_aarch64.whl", hash = "sha256:f1557695e5c2b86e204f6ce9470497848634100787935ab7adc5397c54abd7ab" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp314-cp314t-manylinux_2_34_ppc64le.whl", hash = "sha256:f9a034b642b960767fb343766ae5ba6ad653f2e890ddd82955aef288ffea8736" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp314-cp314t-manylinux_2_34_x86_64.whl", hash = "sha256:b1c76fca783aa7698eb21eb14f9c4aa09452248ee54a627d125025a43f83e7a7" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp314-cp314t-musllinux_1_2_aarch64.whl", hash = "sha256:4f7722c97826770bab8ae92959a2e7b20a5e9e9bf4deae68fd86c3ca457bab52" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp314-cp314t-musllinux_1_2_x86_64.whl", hash = "sha256:09f6d7bf6724f8db8b32f11eccf23efc8e759924bc5603800335cf8859a3ddbd" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp314-cp314t-win32.whl", hash = "sha256:6eebcaf0df1d21ce1f90605c9b432dd2c4f4ab665ac29a40d5e3fc68f51b5e63" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp314-cp314t-win_amd64.whl", hash = "sha256:51c9313e90bd1690ec5a75ed047c27c0b8e6c570029712943d6116ef9a90620b" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp38-abi3-macosx_10_9_universal2.whl", hash = "sha256:14432c8a9bcb37009784f9594a62fae211a2ae9543e96c92b2a8e4c3cd5cd0c4" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp38-abi3-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:07efe86201817e7d3c18781ca9770bc0db04e1e48c994be384e4602bc38f8f27" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:2b45761c6ec22b7c726d6a829558777e32d0f1c8be7c3f3480f9c912d5ee8a10" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp38-abi3-manylinux_2_28_aarch64.whl", hash = "sha256:edd4da498015da5b9f26d38d3bfc2e90257bfa9cbed1f6767c282a0025ae649b" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp38-abi3-manylinux_2_28_ppc64le.whl", hash = "sha256:9af828c0d5a65c70ec729cd7495a4bf1a67ecb66417b8f02ff125ab8a6326a74" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp38-abi3-manylinux_2_28_x86_64.whl", hash = "sha256:256d07c78a04d6b276f5df935a9923275f53bd1522f214447fdf365494e2d515" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp38-abi3-manylinux_2_31_armv7l.whl", hash = "sha256:5d0e362ff51041b0c0d219cc7d6924d7b8996f57ce5712bdcef71eb3c65a59cc" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp38-abi3-manylinux_2_34_aarch64.whl", hash = "sha256:1581aef4219f7ca2849d0250edaa3866212fb74bf5667284f46aa92f9e65c1ca" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp38-abi3-manylinux_2_34_ppc64le.whl", hash = "sha256:a49a3eb5341b9503fa3000a9a0db033161db90d47285291f53c2a9d2cd1b7f76" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp38-abi3-manylinux_2_34_x86_64.whl", hash = "sha256:2207a498b03275d0051589e326b79d4cf59985c99031b05bb292ac52631c37fe" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp38-abi3-musllinux_1_2_aarch64.whl", hash = "sha256:7a02675e2fabd0c0fc04c868b8781863cbf1967691543c22f5470500ff840b31" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp38-abi3-musllinux_1_2_x86_64.whl", hash = "sha256:80887c5cbd1774683cb126f0ab4184567f080071d5acf62205acb354b4b753b7" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp38-abi3-win32.whl", hash = "sha256:ed67ea4e0cfb5faa5bc7ecb6e2b8838f3807a03758eec239d6c21c8769355310" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/cryptography/cryptography-47.0.0-cp38-abi3-win_amd64.whl", hash = "sha256:835d2d7f47cdc53b3224e90810fb1d36ca94ea29cc1801fb4c1bc43876735769" },
+]
+
+[[package]]
 name = "curl-cffi"
 version = "0.15.0"
 source = { registry = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/simple/" }
@@ -189,6 +245,8 @@ source = { virtual = "." }
 dependencies = [
     { name = "curl-cffi" },
     { name = "garminconnect" },
+    { name = "google-cloud-secret-manager" },
+    { name = "gspread" },
     { name = "pandas" },
     { name = "python-dotenv" },
     { name = "requests" },
@@ -198,6 +256,8 @@ dependencies = [
 requires-dist = [
     { name = "curl-cffi", specifier = ">=0.15.0" },
     { name = "garminconnect" },
+    { name = "google-cloud-secret-manager" },
+    { name = "gspread" },
     { name = "pandas", specifier = ">=3.0.2" },
     { name = "python-dotenv" },
     { name = "requests" },
@@ -205,25 +265,189 @@ requires-dist = [
 
 [[package]]
 name = "garminconnect"
-version = "0.3.2"
+version = "0.3.3"
 source = { registry = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/simple/" }
 dependencies = [
     { name = "curl-cffi" },
     { name = "requests" },
     { name = "ua-generator" },
 ]
-sdist = { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/garminconnect/garminconnect-0.3.2.tar.gz", hash = "sha256:ca9d813139cb5f81cd6fc90236a225608e7e13acd7b1034170b0facfdd072d9a" }
+sdist = { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/garminconnect/garminconnect-0.3.3.tar.gz", hash = "sha256:f608193d7a90079fa1fd1d86e8d10e88b871b6ab2500372a9dc48358f8c2d386" }
 wheels = [
-    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/garminconnect/garminconnect-0.3.2-py3-none-any.whl", hash = "sha256:d0b6f332c3262209ef3e48e9a49ccf797a70ff5a7fbd9a546a9c4e9375654106" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/garminconnect/garminconnect-0.3.3-py3-none-any.whl", hash = "sha256:e11dbbddf20abd60d5c8fbde1e7c688ca175a905237dfec8837ee935a1aca803" },
+]
+
+[[package]]
+name = "google-api-core"
+version = "2.30.3"
+source = { registry = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/simple/" }
+dependencies = [
+    { name = "google-auth" },
+    { name = "googleapis-common-protos" },
+    { name = "proto-plus" },
+    { name = "protobuf" },
+    { name = "requests" },
+]
+sdist = { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/google-api-core/google_api_core-2.30.3.tar.gz", hash = "sha256:e601a37f148585319b26db36e219df68c5d07b6382cff2d580e83404e44d641b" }
+wheels = [
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/google-api-core/google_api_core-2.30.3-py3-none-any.whl", hash = "sha256:a85761ba72c444dad5d611c2220633480b2b6be2521eca69cca2dbb3ffd6bfe8" },
+]
+
+[package.optional-dependencies]
+grpc = [
+    { name = "grpcio" },
+    { name = "grpcio-status" },
+]
+
+[[package]]
+name = "google-auth"
+version = "2.49.2"
+source = { registry = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/simple/" }
+dependencies = [
+    { name = "cryptography" },
+    { name = "pyasn1-modules" },
+]
+sdist = { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/google-auth/google_auth-2.49.2.tar.gz", hash = "sha256:c1ae38500e73065dcae57355adb6278cf8b5c8e391994ae9cbadbcb9631ab409" }
+wheels = [
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/google-auth/google_auth-2.49.2-py3-none-any.whl", hash = "sha256:c2720924dfc82dedb962c9f52cabb2ab16714fd0a6a707e40561d217574ed6d5" },
+]
+
+[[package]]
+name = "google-auth-oauthlib"
+version = "1.3.1"
+source = { registry = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/simple/" }
+dependencies = [
+    { name = "google-auth" },
+    { name = "requests-oauthlib" },
+]
+sdist = { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/google-auth-oauthlib/google_auth_oauthlib-1.3.1.tar.gz", hash = "sha256:14c22c7b3dd3d06dbe44264144409039465effdd1eef94f7ce3710e486cc4bfa" }
+wheels = [
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/google-auth-oauthlib/google_auth_oauthlib-1.3.1-py3-none-any.whl", hash = "sha256:1a139ef23f1318756805b0e95f655c238bffd29655329a2978218248da4ee7f8" },
+]
+
+[[package]]
+name = "google-cloud-secret-manager"
+version = "2.27.0"
+source = { registry = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/simple/" }
+dependencies = [
+    { name = "google-api-core", extra = ["grpc"] },
+    { name = "google-auth" },
+    { name = "grpc-google-iam-v1" },
+    { name = "grpcio" },
+    { name = "proto-plus" },
+    { name = "protobuf" },
+]
+sdist = { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/google-cloud-secret-manager/google_cloud_secret_manager-2.27.0.tar.gz", hash = "sha256:6af864c252bd3c11db7bb02b80cb0b14a8c9a33fc7ec4d6f245f33d8ce1f7cd1" }
+wheels = [
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/google-cloud-secret-manager/google_cloud_secret_manager-2.27.0-py3-none-any.whl", hash = "sha256:e5540bece65a3ad720146f3b438973faf9315109b3ffa012a58711843047a3dc" },
+]
+
+[[package]]
+name = "googleapis-common-protos"
+version = "1.74.0"
+source = { registry = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/simple/" }
+dependencies = [
+    { name = "protobuf" },
+]
+sdist = { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/googleapis-common-protos/googleapis_common_protos-1.74.0.tar.gz", hash = "sha256:57971e4eeeba6aad1163c1f0fc88543f965bb49129b8bb55b2b7b26ecab084f1" }
+wheels = [
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/googleapis-common-protos/googleapis_common_protos-1.74.0-py3-none-any.whl", hash = "sha256:702216f78610bb510e3f12ac3cafd281b7ac45cc5d86e90ad87e4d301a3426b5" },
+]
+
+[package.optional-dependencies]
+grpc = [
+    { name = "grpcio" },
+]
+
+[[package]]
+name = "grpc-google-iam-v1"
+version = "0.14.4"
+source = { registry = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/simple/" }
+dependencies = [
+    { name = "googleapis-common-protos", extra = ["grpc"] },
+    { name = "grpcio" },
+    { name = "protobuf" },
+]
+sdist = { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/grpc-google-iam-v1/grpc_google_iam_v1-0.14.4.tar.gz", hash = "sha256:392b3796947ed6334e61171d9ab06bf7eb357f554e5fc7556ad7aab6d0e17038" }
+wheels = [
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/grpc-google-iam-v1/grpc_google_iam_v1-0.14.4-py3-none-any.whl", hash = "sha256:412facc320fcbd94034b4df3d557662051d4d8adfa86e0ddb4dca70a3f739964" },
+]
+
+[[package]]
+name = "grpcio"
+version = "1.80.0"
+source = { registry = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/simple/" }
+dependencies = [
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/grpcio/grpcio-1.80.0.tar.gz", hash = "sha256:29aca15edd0688c22ba01d7cc01cb000d72b2033f4a3c72a81a19b56fd143257" }
+wheels = [
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/grpcio/grpcio-1.80.0-cp312-cp312-linux_armv7l.whl", hash = "sha256:c624cc9f1008361014378c9d776de7182b11fe8b2e5a81bc69f23a295f2a1ad0" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/grpcio/grpcio-1.80.0-cp312-cp312-macosx_11_0_universal2.whl", hash = "sha256:f49eddcac43c3bf350c0385366a58f36bed8cc2c0ec35ef7b74b49e56552c0c2" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/grpcio/grpcio-1.80.0-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:d334591df610ab94714048e0d5b4f3dd5ad1bee74dfec11eee344220077a79de" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/grpcio/grpcio-1.80.0-cp312-cp312-manylinux2014_i686.manylinux_2_17_i686.whl", hash = "sha256:0cb517eb1d0d0aaf1d87af7cc5b801d686557c1d88b2619f5e31fab3c2315921" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/grpcio/grpcio-1.80.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:4e78c4ac0d97dc2e569b2f4bcbbb447491167cb358d1a389fc4af71ab6f70411" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/grpcio/grpcio-1.80.0-cp312-cp312-musllinux_1_2_aarch64.whl", hash = "sha256:2ed770b4c06984f3b47eb0517b1c69ad0b84ef3f40128f51448433be904634cd" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/grpcio/grpcio-1.80.0-cp312-cp312-musllinux_1_2_i686.whl", hash = "sha256:256507e2f524092f1473071a05e65a5b10d84b82e3ff24c5b571513cfaa61e2f" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/grpcio/grpcio-1.80.0-cp312-cp312-musllinux_1_2_x86_64.whl", hash = "sha256:9a6284a5d907c37db53350645567c522be314bac859a64a7a5ca63b77bb7958f" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/grpcio/grpcio-1.80.0-cp312-cp312-win32.whl", hash = "sha256:c71309cfce2f22be26aa4a847357c502db6c621f1a49825ae98aa0907595b193" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/grpcio/grpcio-1.80.0-cp312-cp312-win_amd64.whl", hash = "sha256:9fe648599c0e37594c4809d81a9e77bd138cc82eb8baa71b6a86af65426723ff" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/grpcio/grpcio-1.80.0-cp313-cp313-linux_armv7l.whl", hash = "sha256:e9e408fc016dffd20661f0126c53d8a31c2821b5c13c5d67a0f5ed5de93319ad" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/grpcio/grpcio-1.80.0-cp313-cp313-macosx_11_0_universal2.whl", hash = "sha256:92d787312e613754d4d8b9ca6d3297e69994a7912a32fa38c4c4e01c272974b0" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/grpcio/grpcio-1.80.0-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:8ac393b58aa16991a2f1144ec578084d544038c12242da3a215966b512904d0f" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/grpcio/grpcio-1.80.0-cp313-cp313-manylinux2014_i686.manylinux_2_17_i686.whl", hash = "sha256:68e5851ac4b9afe07e7f84483803ad167852570d65326b34d54ca560bfa53fb6" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/grpcio/grpcio-1.80.0-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:873ff5d17d68992ef6605330127425d2fc4e77e612fa3c3e0ed4e668685e3140" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/grpcio/grpcio-1.80.0-cp313-cp313-musllinux_1_2_aarch64.whl", hash = "sha256:2bea16af2750fd0a899bf1abd9022244418b55d1f37da2202249ba4ba673838d" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/grpcio/grpcio-1.80.0-cp313-cp313-musllinux_1_2_i686.whl", hash = "sha256:ba0db34f7e1d803a878284cd70e4c63cb6ae2510ba51937bf8f45ba997cefcf7" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/grpcio/grpcio-1.80.0-cp313-cp313-musllinux_1_2_x86_64.whl", hash = "sha256:8eb613f02d34721f1acf3626dfdb3545bd3c8505b0e52bf8b5710a28d02e8aa7" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/grpcio/grpcio-1.80.0-cp313-cp313-win32.whl", hash = "sha256:93b6f823810720912fd131f561f91f5fed0fda372b6b7028a2681b8194d5d294" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/grpcio/grpcio-1.80.0-cp313-cp313-win_amd64.whl", hash = "sha256:e172cf795a3ba5246d3529e4d34c53db70e888fa582a8ffebd2e6e48bc0cba50" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/grpcio/grpcio-1.80.0-cp314-cp314-linux_armv7l.whl", hash = "sha256:3d4147a97c8344d065d01bbf8b6acec2cf86fb0400d40696c8bdad34a64ffc0e" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/grpcio/grpcio-1.80.0-cp314-cp314-macosx_11_0_universal2.whl", hash = "sha256:d8e11f167935b3eb089ac9038e1a063e6d7dbe995c0bb4a661e614583352e76f" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/grpcio/grpcio-1.80.0-cp314-cp314-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:f14b618fc30de822681ee986cfdcc2d9327229dc4c98aed16896761cacd468b9" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/grpcio/grpcio-1.80.0-cp314-cp314-manylinux2014_i686.manylinux_2_17_i686.whl", hash = "sha256:4ed39fbdcf9b87370f6e8df4e39ca7b38b3e5e9d1b0013c7b6be9639d6578d14" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/grpcio/grpcio-1.80.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:2dcc70e9f0ba987526e8e8603a610fb4f460e42899e74e7a518bf3c68fe1bf05" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/grpcio/grpcio-1.80.0-cp314-cp314-musllinux_1_2_aarch64.whl", hash = "sha256:448c884b668b868562b1bda833c5fce6272d26e1926ec46747cda05741d302c1" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/grpcio/grpcio-1.80.0-cp314-cp314-musllinux_1_2_i686.whl", hash = "sha256:a1dc80fe55685b4a543555e6eef975303b36c8db1023b1599b094b92aa77965f" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/grpcio/grpcio-1.80.0-cp314-cp314-musllinux_1_2_x86_64.whl", hash = "sha256:31b9ac4ad1aa28ffee5503821fafd09e4da0a261ce1c1281c6c8da0423c83b6e" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/grpcio/grpcio-1.80.0-cp314-cp314-win32.whl", hash = "sha256:367ce30ba67d05e0592470428f0ec1c31714cab9ef19b8f2e37be1f4c7d32fae" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/grpcio/grpcio-1.80.0-cp314-cp314-win_amd64.whl", hash = "sha256:3b01e1f5464c583d2f567b2e46ff0d516ef979978f72091fd81f5ab7fa6e2e7f" },
+]
+
+[[package]]
+name = "grpcio-status"
+version = "1.80.0"
+source = { registry = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/simple/" }
+dependencies = [
+    { name = "googleapis-common-protos" },
+    { name = "grpcio" },
+    { name = "protobuf" },
+]
+sdist = { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/grpcio-status/grpcio_status-1.80.0.tar.gz", hash = "sha256:df73802a4c89a3ea88aa2aff971e886fccce162bc2e6511408b3d67a144381cd" }
+wheels = [
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/grpcio-status/grpcio_status-1.80.0-py3-none-any.whl", hash = "sha256:4b56990363af50dbf2c2ebb80f1967185c07d87aa25aa2bea45ddb75fc181dbe" },
+]
+
+[[package]]
+name = "gspread"
+version = "6.2.1"
+source = { registry = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/simple/" }
+dependencies = [
+    { name = "google-auth" },
+    { name = "google-auth-oauthlib" },
+]
+sdist = { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/gspread/gspread-6.2.1.tar.gz", hash = "sha256:2c7c99f7c32ebea6ec0d36f2d5cbe8a2be5e8f2a48bde87ad1ea203eff32bd03" }
+wheels = [
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/gspread/gspread-6.2.1-py3-none-any.whl", hash = "sha256:6d4ec9f1c23ae3c704a9219026dac01f2b328ac70b96f1495055d453c4c184db" },
 ]
 
 [[package]]
 name = "idna"
-version = "3.11"
+version = "3.13"
 source = { registry = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/simple/" }
-sdist = { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/idna/idna-3.11.tar.gz", hash = "sha256:795dafcc9c04ed0c1fb032c2aa73654d8e8c5023a7df64a53f39190ada629902" }
+sdist = { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/idna/idna-3.13.tar.gz", hash = "sha256:585ea8fe5d69b9181ec1afba340451fba6ba764af97026f92a91d4eef164a242" }
 wheels = [
-    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/idna/idna-3.11-py3-none-any.whl", hash = "sha256:771a87f49d9defaf64091e6e6fe9c18d4833f140bd19464795bc32d966ca37ea" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/idna/idna-3.13-py3-none-any.whl", hash = "sha256:892ea0cde124a99ce773decba204c5552b69c3c67ffd5f232eb7696135bc8bb3" },
 ]
 
 [[package]]
@@ -309,6 +533,15 @@ wheels = [
 ]
 
 [[package]]
+name = "oauthlib"
+version = "3.3.1"
+source = { registry = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/simple/" }
+sdist = { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/oauthlib/oauthlib-3.3.1.tar.gz", hash = "sha256:0f0f8aa759826a193cf66c12ea1af1637f87b9b4622d46e866952bb022e538c9" }
+wheels = [
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/oauthlib/oauthlib-3.3.1-py3-none-any.whl", hash = "sha256:88119c938d2b8fb88561af5f6ee0eec8cc8d552b7bb1f712743136eb7523b7a1" },
+]
+
+[[package]]
 name = "pandas"
 version = "3.0.2"
 source = { registry = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/simple/" }
@@ -358,6 +591,54 @@ wheels = [
     { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/pandas/pandas-3.0.2-cp314-cp314t-musllinux_1_2_x86_64.whl", hash = "sha256:734be7551687c00fbd760dc0522ed974f82ad230d4a10f54bf51b80d44a08702" },
     { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/pandas/pandas-3.0.2-cp314-cp314t-win_amd64.whl", hash = "sha256:57a07209bebcbcf768d2d13c9b78b852f9a15978dac41b9e6421a81ad4cdd276" },
     { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/pandas/pandas-3.0.2-cp314-cp314t-win_arm64.whl", hash = "sha256:5371b72c2d4d415d08765f32d689217a43227484e81b2305b52076e328f6f482" },
+]
+
+[[package]]
+name = "proto-plus"
+version = "1.27.2"
+source = { registry = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/simple/" }
+dependencies = [
+    { name = "protobuf" },
+]
+sdist = { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/proto-plus/proto_plus-1.27.2.tar.gz", hash = "sha256:b2adde53adadf75737c44d3dcb0104fde65250dfc83ad59168b4aa3e574b6a24" }
+wheels = [
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/proto-plus/proto_plus-1.27.2-py3-none-any.whl", hash = "sha256:6432f75893d3b9e70b9c412f1d2f03f65b11fb164b793d14ae2ca01821d22718" },
+]
+
+[[package]]
+name = "protobuf"
+version = "6.33.6"
+source = { registry = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/simple/" }
+sdist = { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/protobuf/protobuf-6.33.6.tar.gz", hash = "sha256:a6768d25248312c297558af96a9f9c929e8c4cee0659cb07e780731095f38135" }
+wheels = [
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/protobuf/protobuf-6.33.6-cp310-abi3-win32.whl", hash = "sha256:7d29d9b65f8afef196f8334e80d6bc1d5d4adedb449971fefd3723824e6e77d3" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/protobuf/protobuf-6.33.6-cp310-abi3-win_amd64.whl", hash = "sha256:0cd27b587afca21b7cfa59a74dcbd48a50f0a6400cfb59391340ad729d91d326" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/protobuf/protobuf-6.33.6-cp39-abi3-macosx_10_9_universal2.whl", hash = "sha256:9720e6961b251bde64edfdab7d500725a2af5280f3f4c87e57c0208376aa8c3a" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/protobuf/protobuf-6.33.6-cp39-abi3-manylinux2014_aarch64.whl", hash = "sha256:e2afbae9b8e1825e3529f88d514754e094278bb95eadc0e199751cdd9a2e82a2" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/protobuf/protobuf-6.33.6-cp39-abi3-manylinux2014_s390x.whl", hash = "sha256:c96c37eec15086b79762ed265d59ab204dabc53056e3443e702d2681f4b39ce3" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/protobuf/protobuf-6.33.6-cp39-abi3-manylinux2014_x86_64.whl", hash = "sha256:e9db7e292e0ab79dd108d7f1a94fe31601ce1ee3f7b79e0692043423020b0593" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/protobuf/protobuf-6.33.6-py3-none-any.whl", hash = "sha256:77179e006c476e69bf8e8ce866640091ec42e1beb80b213c3900006ecfba6901" },
+]
+
+[[package]]
+name = "pyasn1"
+version = "0.6.3"
+source = { registry = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/simple/" }
+sdist = { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/pyasn1/pyasn1-0.6.3.tar.gz", hash = "sha256:697a8ecd6d98891189184ca1fa05d1bb00e2f84b5977c481452050549c8a72cf" }
+wheels = [
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/pyasn1/pyasn1-0.6.3-py3-none-any.whl", hash = "sha256:a80184d120f0864a52a073acc6fc642847d0be408e7c7252f31390c0f4eadcde" },
+]
+
+[[package]]
+name = "pyasn1-modules"
+version = "0.4.2"
+source = { registry = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/simple/" }
+dependencies = [
+    { name = "pyasn1" },
+]
+sdist = { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/pyasn1-modules/pyasn1_modules-0.4.2.tar.gz", hash = "sha256:677091de870a80aae844b1ca6134f54652fa2c8c5a52aa396440ac3106e941e6" }
+wheels = [
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/pyasn1-modules/pyasn1_modules-0.4.2-py3-none-any.whl", hash = "sha256:29253a9207ce32b64c3ac6600edc75368f98473906e8fd1043bd6b5b1de2c14a" },
 ]
 
 [[package]]
@@ -415,6 +696,19 @@ wheels = [
 ]
 
 [[package]]
+name = "requests-oauthlib"
+version = "2.0.0"
+source = { registry = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/simple/" }
+dependencies = [
+    { name = "oauthlib" },
+    { name = "requests" },
+]
+sdist = { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/requests-oauthlib/requests-oauthlib-2.0.0.tar.gz", hash = "sha256:b3dffaebd884d8cd778494369603a9e7b58d29111bf6b41bdc2dcd87203af4e9" }
+wheels = [
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/requests-oauthlib/requests_oauthlib-2.0.0-py2.py3-none-any.whl", hash = "sha256:7dd8a5c40426b779b0868c404bdef9768deccf22749cde15852df527e6269b36" },
+]
+
+[[package]]
 name = "rich"
 version = "15.0.0"
 source = { registry = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/simple/" }
@@ -437,12 +731,21 @@ wheels = [
 ]
 
 [[package]]
-name = "tzdata"
-version = "2026.1"
+name = "typing-extensions"
+version = "4.15.0"
 source = { registry = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/simple/" }
-sdist = { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/tzdata/tzdata-2026.1.tar.gz", hash = "sha256:67658a1903c75917309e753fdc349ac0efd8c27db7a0cb406a25be4840f87f98" }
+sdist = { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/typing-extensions/typing_extensions-4.15.0.tar.gz", hash = "sha256:0cea48d173cc12fa28ecabc3b837ea3cf6f38c6d1136f85cbaaf598984861466" }
 wheels = [
-    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/tzdata/tzdata-2026.1-py2.py3-none-any.whl", hash = "sha256:4b1d2be7ac37ceafd7327b961aa3a54e467efbdb563a23655fbfe0d39cfc42a9" },
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/typing-extensions/typing_extensions-4.15.0-py3-none-any.whl", hash = "sha256:f0fa19c6845758ab08074a0cfa8b7aecb71c999ca73d62883bc25cc018c4e548" },
+]
+
+[[package]]
+name = "tzdata"
+version = "2026.2"
+source = { registry = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/simple/" }
+sdist = { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/tzdata/tzdata-2026.2.tar.gz", hash = "sha256:9173fde7d80d9018e02a662e168e5a2d04f87c41ea174b139fbef642eda62d10" }
+wheels = [
+    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/tzdata/tzdata-2026.2-py2.py3-none-any.whl", hash = "sha256:bbe9af844f658da81a5f95019480da3a89415801f6cc966806612cc7169bffe7" },
 ]
 
 [[package]]
