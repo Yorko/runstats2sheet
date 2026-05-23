@@ -104,7 +104,7 @@ To run the sync automatically and handle cases where the laptop is asleep at the
 
 2. Add the following entry to run the script every 1 hour:
    ```cron
-   0 * * * * cd /Users/kashnitsky/Documents/garmin_sheet && make sync >> garmin_sync.log 2>&1
+   0 * * * * cd <YOUR_PATH_TO_THIS_REPO> && make sync >> runstats_sync.log 2>&1
    ```
    The script includes logic to ensure it only performs the sync once per hour, so running it every hour allows it to catch up if the laptop was asleep.
 
