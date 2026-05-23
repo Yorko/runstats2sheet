@@ -136,3 +136,5 @@ cython_debug/
 service_account.json
 .last_sync_timestamp
 garmin_sync.log
+.strava.secrets
+uv.lock

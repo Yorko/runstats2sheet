@@ -1,0 +1,3 @@
+# Configuration for Garmin/Strava Google Sheets Sync
+# Choose whether to sync from Garmin or Strava. Options: garmin, strava
+sync_source: garmin
