@@ -1,6 +1,6 @@
 # Garmin & Strava to Google Sheets Sync
 
-This application fetches your running/fitness stats from either Garmin Connect or Strava and writes them directly to a Google Sheet using the `gspread` library.
+This application fetches your running/fitness stats from either Garmin Connect or Strava and writes them directly to a Google Sheet using the `gspread` library. The intention is then to use Gemini gems to analyze these stats. 
 
 ## Prerequisites
 
