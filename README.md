@@ -16,9 +16,12 @@ Create or edit `config.yaml` in the project root:
 ```yaml
 # Choose whether to sync from Garmin or Strava. Options: garmin, strava
 sync_source: garmin
+
+# Set to true to print all values of the most recent activity for debugging
+debug: false
 ```
 
-By default, it is set to `garmin`.
+By default, `sync_source` is set to `garmin` and `debug` is `false`.
 
 ### 2. Project Environment
 
@@ -115,6 +118,29 @@ To run the sync automatically and handle cases where the laptop is asleep at the
 
 **Example of fetched data**
 ![Garmin Running Stats](img/garmin_running_stats.png)
+
+## Synced Data Columns
+
+The script synchronizes the following columns to the Google Sheet (in order):
+
+1. **Timestamp**: Sync execution time.
+2. **Start time**: Local start time of the activity.
+3. **Activity Name**: Name/title of the activity.
+4. **Activity Type**: Type of sport (e.g. Run, Ride).
+5. **Distance**: Distance in kilometers.
+6. **Duration**: Duration in minutes.
+7. **Av HR**: Average heart rate (bpm).
+8. **Max HR**: Maximum heart rate (bpm).
+9. **Pace**: Average pace (formatted as `MM:SS`).
+10. **Avg Cadence**: Average running cadence (steps per minute).
+11. **Max Cadence**: Maximum running cadence (steps per minute).
+12. **Aerobic TE**: Aerobic Training Effect score.
+13. **Anaerobic TE**: Anaerobic Training Effect score.
+14. **HR Zones**: Time spent in each HR zone (JSON).
+15. **split_stats**: Detailed stats per kilometer split/lap in JSON format (containing split index, distance, duration time, pace, average HR, and average cadence).
+16. **VO2MAX**: VO2 Max value.
+17. **Calories**: Calories burned.
+18. **Training Effect**: Primary training effect label.
 
 ## Analysis with Gemini
 
