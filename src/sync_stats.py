@@ -29,8 +29,8 @@ if not config.SPREADSHEET_ID:
     sys.exit(1)
 
 
-def fetch_garmin_activities() -> list[dict]:
-    """Fetch and process activities from Garmin Connect."""
+def fetch_garmin_activities(existing_start_times: set) -> list[dict]:
+    """Fetch and process activities from Garmin Connect, retrieving detailed metrics only for new activities."""
     api = garmin_api.init_api()
     if not api:
         logging.error("Failed to initialize Garmin API.")
@@ -43,10 +43,17 @@ def fetch_garmin_activities() -> list[dict]:
         logging.error(f"Failed to fetch activities: {err}")
         sys.exit(1)
 
-    logging.info(f"Found {len(activities)} activities. Processing...")
+    logging.info(f"Found {len(activities)} activities. Filtering for new activities...")
 
     processed_activities = []
     for i, activity in enumerate(activities):
+        start_time = activity['startTimeLocal']
+        is_most_recent = (i == 0)
+        
+        # Skip if already in Google Sheets
+        if start_time in existing_start_times and not (is_most_recent and config.DEBUG):
+            continue
+
         # Extract relevant data
         activity_id = activity['activityId']
         name = activity['activityName']
@@ -67,7 +74,6 @@ def fetch_garmin_activities() -> list[dict]:
         te_anaerobic = activity.get('anaerobicTrainingEffect', 0)
         te_aerobic = round(float(te_aerobic), 1)
         te_anaerobic = round(float(te_anaerobic), 1)
-        start_time = activity['startTimeLocal']
 
         # Extract additional fields
         activity_type_obj = activity.get('activityType', {})
@@ -86,9 +92,51 @@ def fetch_garmin_activities() -> list[dict]:
         if not success_hr:
             hr_zones = {}
 
+        # Fetch splits
+        success_splits, splits_resp, err_splits = garmin_api.safe_api_call(api.get_activity_splits, activity_id)
+        assert success_splits and isinstance(splits_resp, dict)
+
+        splits_list = []
+        if success_splits and isinstance(splits_resp, dict):
+            split_dtos = splits_resp.get("splitDTOs") or splits_resp.get("lapDTOs") or []
+            # Filter for distance-based splits if they exist, else fallback to all
+            distance_splits = [s for s in split_dtos if s.get("splitType") in ("KM", "MILE", "RKM", "RMILE")]
+            if not distance_splits:
+                distance_splits = split_dtos
+            
+            for idx, s in enumerate(distance_splits):
+                lap_num = s.get("lapIndex") or (idx + 1)
+                
+                dist_m = s.get("distance") or 0
+                distance_km = round(dist_m / 1000, 2)
+                
+                duration_s = s.get("duration") or s.get("movingDuration") or s.get("elapsedDuration") or 0
+                time_str = decimal_pace_to_mmss(duration_s / 60)
+                
+                speed_ms_split = s.get("averageSpeed") or s.get("avgSpeed") or 0
+                pace_val = 0
+                if speed_ms_split > 0:
+                    pace_val = 16.666 / speed_ms_split
+                pace_str = decimal_pace_to_mmss(pace_val)
+                
+                hr_val = s.get("averageHR") or s.get("avgHR") or s.get("averageHeartRate") or s.get("avgHeartRate") or 0
+                avg_hr = round(hr_val)
+                
+                cad = s.get("averageRunCadence") or s.get("avgRunCadence") or s.get("averageCadence") or s.get("avgCadence") or 0
+                split_avg_cadence = round(cad)
+                
+                splits_list.append({
+                    "split": lap_num,
+                    "distance": distance_km,
+                    "time": time_str,
+                    "pace": pace_str,
+                    "avg_hr": avg_hr,
+                    "avg_cadence": split_avg_cadence
+                })
+
         logging.info(f"Processing activity: {name} ({start_time})")
 
-        processed_activities.append({
+        act_data = {
             "startTimeLocal": start_time,
             "activityName": name,
             "distance": round(distance, 2),
@@ -99,13 +147,24 @@ def fetch_garmin_activities() -> list[dict]:
             "TE_aerobic": te_aerobic,
             "TE_anaerobic": te_anaerobic,
             "HR_zones": json.dumps(hr_zones) if hr_zones else "{}",
+            "split_stats": json.dumps(splits_list) if splits_list else "[]",
             "activityType": activity_type,
             "vo2max": vo2max,
             "calories": calories,
             "trainingEffectLabel": te_label,
             "avgCadence": round(avg_cadence, 1),
             "maxCadence": round(max_cadence, 1)
-        })
+        }
+
+        if is_most_recent and config.DEBUG:
+            logging.info("DEBUG mode: Printing values for the most recent activity:")
+            print(json.dumps(act_data, indent=2, ensure_ascii=False))
+
+        # Skip appending if it's already in the sheet
+        if start_time in existing_start_times:
+            continue
+
+        processed_activities.append(act_data)
     return processed_activities
 
 
@@ -149,12 +208,13 @@ def fetch_strava_activities(existing_start_times: set) -> list[dict]:
     logging.info(f"Found {len(summary_activities)} activities. Filtering for new activities...")
 
     processed_activities = []
-    for summary_activity in summary_activities:
+    for idx, summary_activity in enumerate(summary_activities):
         # Format start time to local string matching Garmin format to check for duplicates
         start_time = summary_activity.start_date_local.strftime("%Y-%m-%d %H:%M:%S")
+        is_most_recent = (idx == 0)
         
         # Skip if already in Google Sheets
-        if start_time in existing_start_times:
+        if start_time in existing_start_times and not (is_most_recent and config.DEBUG):
             continue
 
         logging.info(f"New Strava activity detected: {summary_activity.name} ({start_time}). Fetching details...")
@@ -205,7 +265,43 @@ def fetch_strava_activities(existing_start_times: set) -> list[dict]:
         vo2max = extra.get("vo2max") or extra.get("vo2_max") or 0.0
         te_label = extra.get("training_effect_label") or extra.get("te_label") or ""
 
-        processed_activities.append({
+        # Fetch splits
+        splits_list = []
+        splits_metric = extra.get("splits_metric") or []
+        for idx, s in enumerate(splits_metric):
+            lap_num = s.get("split") or (idx + 1)
+            
+            dist_m = s.get("distance") or 0
+            distance_km = round(dist_m / 1000, 2)
+            
+            duration_s = s.get("elapsed_time") or s.get("moving_time") or 0
+            time_str = decimal_pace_to_mmss(duration_s / 60)
+            
+            speed_ms_split = s.get("average_speed") or 0
+            pace_val = 0
+            if speed_ms_split > 0:
+                pace_val = 16.666 / speed_ms_split
+            pace_str = decimal_pace_to_mmss(pace_val)
+            
+            hr_val = s.get("average_heartrate") or 0
+            avg_hr = round(hr_val)
+            
+            cad = s.get("average_cadence") or 0
+            if sport_type == "Run":
+                if 0 < cad < 120:
+                    cad = cad * 2
+            split_avg_cadence = round(cad)
+            
+            splits_list.append({
+                "split": lap_num,
+                "distance": distance_km,
+                "time": time_str,
+                "pace": pace_str,
+                "avg_hr": avg_hr,
+                "avg_cadence": split_avg_cadence
+            })
+
+        act_data = {
             "startTimeLocal": start_time,
             "activityName": name,
             "distance": round(distance, 2),
@@ -216,13 +312,24 @@ def fetch_strava_activities(existing_start_times: set) -> list[dict]:
             "TE_aerobic": round(float(te_aerobic), 1) if te_aerobic else 0.0,
             "TE_anaerobic": round(float(te_anaerobic), 1) if te_anaerobic else 0.0,
             "HR_zones": json.dumps(hr_zones) if hr_zones else "{}",
+            "split_stats": json.dumps(splits_list) if splits_list else "[]",
             "activityType": sport_type,
             "vo2max": round(float(vo2max), 1) if vo2max else 0.0,
             "calories": round(calories) if calories else 0,
             "trainingEffectLabel": te_label,
             "avgCadence": round(avg_cadence, 1),
             "maxCadence": round(max_cadence, 1)
-        })
+        }
+
+        if is_most_recent and config.DEBUG:
+            logging.info("DEBUG mode: Printing values for the most recent activity:")
+            print(json.dumps(act_data, indent=2, ensure_ascii=False))
+
+        # Skip appending if it's already in the sheet
+        if start_time in existing_start_times:
+            continue
+
+        processed_activities.append(act_data)
     return processed_activities
 
 
@@ -234,7 +341,7 @@ def sync_stats():
         try:
             last_sync_str = state_file.read_text().strip()
             last_sync = datetime.fromisoformat(last_sync_str)
-            if now - last_sync < timedelta(hours=1):
+            if now - last_sync < timedelta(hours=1) and not config.DEBUG:
                 logging.info(f"Last sync was at {last_sync_str} (less than 1 hour ago). Skipping.")
                 return
         except ValueError:
@@ -278,7 +385,8 @@ def sync_stats():
         "Timestamp", "Start time", "Activity Name", "Activity Type",
         "Distance", "Duration", "Av HR", "Max HR", "Pace",
         "Avg Cadence", "Max Cadence", "Aerobic TE", "Anaerobic TE",
-        "HR Zones", "VO2MAX", "Calories", "Training Effect"
+        "HR Zones", "split_stats",
+        "VO2MAX", "Calories", "Training Effect"
     ]
 
     # If sheet is completely empty, insert the header row first
@@ -305,7 +413,7 @@ def sync_stats():
     if source == "strava":
         processed_activities = fetch_strava_activities(existing_start_times)
     elif source == "garmin":
-        processed_activities = fetch_garmin_activities()
+        processed_activities = fetch_garmin_activities(existing_start_times)
     else:
         logging.error(f"Unknown sync source: {source}. Must be 'garmin' or 'strava'.")
         sys.exit(1)
@@ -339,20 +447,24 @@ def sync_stats():
                 activity["TE_aerobic"],
                 activity["TE_anaerobic"],
                 activity["HR_zones"],
+                activity.get("split_stats", "[]"),
                 activity.get("vo2max", 0),
                 activity.get("calories", 0),
                 activity.get("trainingEffectLabel", "")
             ])
         
-        if rows_to_append:
-            logging.info(f"Inserting {len(rows_to_append)} new rows to Google Sheet at row 2...")
-            wks.insert_rows(rows_to_append, row=2)
-            logging.info("Successfully updated Google Sheet.")
+        if config.DEBUG:
+            logging.info("DEBUG mode is enabled. Skipping insertion of rows into Google Sheet and skipping state update.")
         else:
-            logging.info("No new activities to append.")
+            if rows_to_append:
+                logging.info(f"Inserting {len(rows_to_append)} new rows to Google Sheet at row 2...")
+                wks.insert_rows(rows_to_append, row=2)
+                logging.info("Successfully updated Google Sheet.")
+            else:
+                logging.info("No new activities to append.")
 
-        # Update state file on success
-        state_file.write_text(now.isoformat())
+            # Update state file on success
+            state_file.write_text(now.isoformat())
 
     except Exception as e:
         logging.error(f"Failed to send data to Google Sheets: {e}")

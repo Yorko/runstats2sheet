@@ -22,6 +22,7 @@ def load_config_yaml(file_path="config.yaml") -> dict:
 
 yaml_config = load_config_yaml()
 SYNC_SOURCE = yaml_config.get("sync_source", "garmin").lower()
+DEBUG = yaml_config.get("debug", "false").lower() == "true"
 
 # Garmin credentials
 GARMIN_EMAIL = os.getenv("GARMIN_EMAIL")
