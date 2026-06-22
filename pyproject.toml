@@ -13,4 +13,8 @@ dependencies = [
     "gspread",
     "google-cloud-secret-manager",
     "strava-client>=1.0.7",
+    "ipykernel>=7.3.0",
+    "openpyxl>=3.1.5",
+    "seaborn>=0.13.2",
+    "matplotlib>=3.11.0",
 ]
