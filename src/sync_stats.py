@@ -78,7 +78,47 @@ def fetch_garmin_activities(existing_start_times: set) -> list[dict]:
         # Extract additional fields
         activity_type_obj = activity.get('activityType', {})
         activity_type = activity_type_obj.get('typeKey', '') if isinstance(activity_type_obj, dict) else activity_type_obj
-        vo2max = activity.get('vO2MaxValue') or activity.get('vo2MaxValue') or 0
+        vo2max = (
+            activity.get('vO2MaxPreciseValue')
+            or activity.get('vo2MaxPreciseValue')
+            or activity.get('genericVo2MaxPreciseValue')
+            or activity.get('vO2MaxPrecise')
+            or activity.get('vo2MaxPrecise')
+            or activity.get('vO2MaxValue')
+            or activity.get('vo2MaxValue')
+            or activity.get('vO2Max')
+            or activity.get('vo2Max')
+            or 0
+        )
+
+        # Fall back to daily max metrics if VO2max is integer or 0
+        if (not vo2max or (isinstance(vo2max, (int, float)) and float(vo2max).is_integer())) and 'startTimeLocal' in activity:
+            try:
+                date_str = str(activity['startTimeLocal'])[:10]
+                success_max, max_metrics, _ = garmin_api.safe_api_call(api.get_max_metrics, date_str)
+                if success_max and max_metrics:
+                    items = (
+                        max_metrics if isinstance(max_metrics, list)
+                        else max_metrics.get('maxMetCategoryDTOList', [max_metrics]) if isinstance(max_metrics, dict)
+                        else []
+                    )
+                    for item in items:
+                        if isinstance(item, dict):
+                            val = (
+                                item.get('genericVo2MaxPreciseValue')
+                                or item.get('vo2MaxPreciseValue')
+                                or item.get('vO2MaxPreciseValue')
+                                or item.get('vo2MaxPrecise')
+                                or item.get('vO2MaxPrecise')
+                                or item.get('vo2MaxValue')
+                                or item.get('vO2MaxValue')
+                            )
+                            if val:
+                                vo2max = val
+                                break
+            except Exception as e:
+                logging.debug(f"Failed to fetch max metrics for VO2max: {e}")
+
         vo2max = round(float(vo2max), 1)
         calories = activity.get('calories', 0)
         te_label = activity.get('trainingEffectLabel', '')
@@ -262,7 +302,16 @@ def fetch_strava_activities(existing_start_times: set) -> list[dict]:
         # Map/extract training effect & vo2max (with safe fallbacks)
         te_aerobic = extra.get("aerobic_training_effect") or extra.get("aerobic_te") or 0.0
         te_anaerobic = extra.get("anaerobic_training_effect") or extra.get("anaerobic_te") or 0.0
-        vo2max = extra.get("vo2max") or extra.get("vo2_max") or 0.0
+        vo2max = (
+            extra.get("vo2max")
+            or extra.get("vo2_max")
+            or extra.get("vo2_max_precise")
+            or extra.get("vO2MaxPreciseValue")
+            or extra.get("vo2MaxPreciseValue")
+            or extra.get("vO2MaxValue")
+            or extra.get("vo2MaxValue")
+            or 0.0
+        )
         te_label = extra.get("training_effect_label") or extra.get("te_label") or ""
 
         # Fetch splits
